@@ -65,4 +65,5 @@ res.send((result.n == 1) ? {msg: 'success'} : {msg: 'error'})
 })
 })
 
-app.listen(3000);
+// app.listen(3000);
+app.listen(process.env.PORT || 3000);
