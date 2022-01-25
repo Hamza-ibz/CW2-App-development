@@ -65,6 +65,9 @@ app.use(function(request, response, next) {
     response.end('Secret info: the password is "swordfish"!');
     });
     
+    app.get('/', (req, res, next) => {
+        res.send('Select a collection, e.g., /collection/messages')
+        })
     
     // http.createServer(app).listen(3000); // start the server
 
