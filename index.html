@@ -1,0 +1,177 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title Pet Depot></title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="products.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1 v-text='sitename'> </h1>
+            <br>
+            <br>
+        </header>
+
+        <div v-if='showProduct'>
+            <section class="product">
+                <div class="p-heading">
+                    <h2>
+                        <font>After </font>School Club
+                    </h2>
+                </div>
+                <div class="product-container">
+                    <p>
+                        <!-- 
+                        Search (as you type) and Shopping cart 
+                        The shopping cart button only enabled after at least one lesson is added to cart
+                        -->
+                    <input type="text" v-model="search" placeholder="search" class="search"/>
+                    <button class="basket" @click='showCheckout' v-if="this.cart.length > 0"> {{this.cart.length}} <span
+                            class="fas fa-cart-plus"></span>Shopping cart</button>
+                    <button class="basket" disabled='disabled' v-else> <span class="fas fa-cart-plus"></span>Shopping
+                        cart</button>
+                    <br>
+                    <!-- 
+                        User can choose to sort the lessons by one of the following attributes: subject,
+                        location, price, or availability;
+                     -->
+                    <input type="radio" v-on:change=sort_a_d(sort.option) id="price" value="price"
+                        v-model="sort.attributes">
+                    <label for="price">Price</label>
+                    <input type="radio" v-on:click=sort_a_d(sort.option) v-on:change=sort_a_d(sort.option) id="location" value="location"
+                        v-model="sort.attributes">
+                    <label for="location">Location</label>
+                    <input type="radio" v-on:click=sort_a_d(sort.option) v-on:change=sort_a_d(sort.option)
+                        id="availableInventory" value="availableInventory" v-model="sort.attributes">
+                    <label for="availableInventory">Spaces</label>
+                    <input type="radio" v-on:change=sort_a_d(sort.option) id="title" value="title"
+                        v-model="sort.attributes">
+                    <label for="title">Subject</label>
+                    <br>
+                    <!-- 
+                        There is an option to sort in ascending or descending order, regardless of the attribute selected;
+                    -->
+                    <input type="radio" v-on:click="sortLowToHigh(sort.attributes)" id="acending" value="acending"
+                        v-model="sort.option">
+                    <label for="acending">acending</label>
+                    <input type="radio" v-on:click="sortHighToLow(sort.attributes)" id="decending" value="decending"
+                        v-model="sort.option">
+                    <label for="decending">decending</label>
+
+                    </p>
+                    <!-- 
+                        10 lessons and each lesson has 5 spaces
+                        Each lesson has Subject, Location,Price,Space (how many spaces are left),A Font Awesome icon,
+                        An image.
+                        v-for used for the display of the lesson list. 
+                        "filteredProducts" used to filter lessons regarding with search
+                     -->
+                    <div v-for="product in filteredProducts">
+                        <div class="p-box">
+                            <img v-bind:src='product.image'>
+                            <h2>Subject: {{product.title}}</h2>
+                            <p>Location: {{product.location}}</p>
+                            <p> Price: £{{product.price}}</p>
+                            <p> Spaces: {{product.availableInventory}}</p>
+                            <span v-if="product.availableInventory === 0">
+                                All out!!!
+                            </span>
+                            <span v-else-if="product.availableInventory <= 3 ">
+                                Only {{product.availableInventory}} left!
+                            </span>
+                            <span v-else>Buy now!!</span>
+                            <p>
+                                <span v-for="n in product.rating" class="fas fa-star"></span>
+                                <span v-for="n in 5-product.rating" class="far fa-star"></span>
+                            </p>
+                            <!-- 
+                                Each lesson has a ’Add to Cart’ button
+                                The button is only enabled when space is larger than 0
+                                Clicking the button once will add one space to the shopping cart, reducing the 
+                                remaining space by one
+                                Once there is no more space, i.e., space = 0, the ’Add to cart’ button is
+                                disabled but still visible, i.e., clicking it will not further reduce ‘space’ or add lesson
+                                to the cart.
+                             -->
+
+                            <button class="buy-btn" @click="addToCart(product)" v-if="canAddToCart(product)"> Add to
+                                cart </button>
+                            <button disabled='disabled' v-else> Add to cart </button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+        <div v-else>
+            <section class="product">
+                <div class="product-container">
+                    <!-- 
+                        Clicking the shopping cart button shows the cart, and clicking the button
+                        again goes back to the lesson page;
+                     -->
+                    <button class="basket" @click='showCheckout'> {{this.cart.length}} <span
+                            class="fas fa-cart-plus"></span>Shopping cart</button>
+                            <!-- 
+                                for loop going through the cart items and dispalying lesson, location and price
+                             -->
+                    <div v-for="(basket,index) in cart" :key="cart.title">
+                        <div class="p-box">
+                            <img v-bind:src='basket.image'>
+                            <h2 v-text='basket.title'></h2>
+                            <p>Location: {{basket.location}}</p>
+                            <p> Price: £{{basket.price}}</p>
+                            <!-- 
+                                User can remove lesson from shopping cart; the removed lesson is
+                                added back to the lesson list.
+                             -->
+                            <button class="remove-btn" @click="removeToCart(index,basket.id)"> remove from cart </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 
+                    The checkout is part of the shopping cart page;
+                    A user must provide ‘Name’ and ‘Phone number’ before he/she can check out;
+                 -->
+                <h2>Checkout</h2>
+                <!-- 
+                    user only can type letters in the "first" and "second" name and the user can only type numbers in the 
+                    ’Phone number’. the check is done using regular expressions;
+                 -->
+                <p>
+                    <strong>First Name:</strong>
+                    <input type="text" v-model.trim="order.firstName" v-on:keypress="isLetter($event)" />
+                </p>
+
+                <p>
+                    <strong>Last Name:</strong>
+                    <input type="text" v-model.trim=" order.lastName" v-on:keypress="isLetter($event)" />
+                </p>
+
+                <strong>Phone number</strong>
+                <input v-model.trim="phone_value" type="text" @input="acceptNumber">
+
+                <!-- 
+                    The ’checkout’ button is only enabled after valid ’name’ and ’phone’ are provided;
+                    Clicking the ’checkout’ button displays a message confirming the order has
+                    been submitted.
+                 -->
+
+                <button :disabled="checkoutDisable(this.order.firstName,this.order.lastName,this.phone_value)" v-on:click="submitForm">Checkout</button>
+
+
+            </section>
+        </div>
+
+    </div>
+    <script src="vue.js"></script>
+</body>
+
+</html>
