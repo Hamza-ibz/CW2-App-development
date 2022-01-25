@@ -1,0 +1,133 @@
+/* CSS Document */
+body{
+    margin:0px;
+    padding:0px;
+    font-family: myriad pro;
+    background-image: url("https://www.adobe.com/express/create/media_1a26787574ae07f7fb63cb1732ba16d52bd0a9d74.jpeg?width=2000&format=webply&optimize=medium");
+}
+
+*{
+    box-sizing:border-box;
+}
+
+
+/*---search bar---*/
+.search{
+	margin: 50px 100px;
+}
+
+/* products within all pages */
+.product{
+	width:85%;
+	background-color: #FFFFFF;
+	box-shadow: 2px 2px 30px rgba(167,158,245,0.2);
+	margin:10px auto;
+	padding: 40px 20px;
+	position: relative;
+	/* background-image: url("../images/product bg.png"); */
+    background-size: 500px;
+    background-color: rgb(250, 238, 230);
+	border-radius: 10px;
+}
+
+/* sorting drop down */
+.priceLow{
+	position: absolute;
+	top:4%;
+	right:10%;
+}
+
+.priceHigh{
+	position: absolute;
+	top:4%;
+	right:30%;
+}
+
+.priceDefault{
+    position: absolute;
+	top:4%;
+	right:50%;
+}
+
+.basket{
+	position: absolute;
+	top:4%;
+	right:80%;
+}
+
+
+/* products title */
+
+.p-heading h2{
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-align: center;
+	font-size: 2rem;
+	color: #323543;
+}
+
+.p-heading font{
+	color: #405ca9;
+}
+
+/* includes all products */
+.product-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 10px 0px;
+	width: 100%;
+	
+}
+
+/* includes separate products */
+.p-box{
+	width: 250px;
+	height: 630px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 4px;
+	position: relative;
+	margin: 50px 30px;
+
+}
+
+/* image of products */
+.p-box img{
+	height:180px;
+}
+
+/* buy button on products */
+.buy-btn{
+	position: absolute;
+	width: 140px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+	left:50%;
+	bottom: 10px;
+	transform: translateX(-50%);
+	border-radius: 30px;
+	color:#FFFFFF;
+	background-color: #2f2e41;
+}
+
+/* hover of items within the products */
+.p-box:hover{
+	box-shadow: 3px 3px 40px rgba(0,0,0,0.1);
+	background-color: #FFFFFF;
+}
+
+.buy-btn:hover{
+	color: #fff;
+	background-color:#405ca9;
+	transition: all ease 0.5s;
+}
+
+
