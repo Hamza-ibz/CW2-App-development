@@ -42,7 +42,7 @@ return next()
 // res.send('Select a collection, e.g., /collection/messages')
 // })
 
-app.get('/', (req, res, next) => {
+app.get('cw2-web-app.herokuapp.com/', (req, res, next) => {
     res.send('Select a collection, e.g., /collection/messages')
     })
 
