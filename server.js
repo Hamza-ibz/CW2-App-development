@@ -63,9 +63,17 @@ res.send(results)
 })
 })
 
+app.get('/collection/:collectionName/', (req, res, next) => {
+    req.collection.find({}).toArray((e, results) => {
+        console.log("In comes a " + req.method + " to " + req.url + " GET request successfull");
+    if (e) return next(e)
+    res.send(results)
+    })
+    })
 
 
-app.post('/collection/:collectionName', (req, res, next) => {
+
+app.post('/collection/:collectionName/search/', (req, res, next) => {
 req.collection.insertOne(req.body,(e,results) => {
     console.log("In comes a " + req.method + " to " + req.url + " POST request successfull");
     console.log(req.body);

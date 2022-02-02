@@ -17,7 +17,7 @@ let webstore = new Vue({
         phone_value: "",
     },
     created: () => {
-        fetch("http://localhost:3000/collection/lessons/search/")
+        fetch("https://cw2-web-app.herokuapp.com/collection/lessons/search/")
           .then((response) => {
             return response.json();
           })
@@ -88,7 +88,7 @@ let webstore = new Vue({
             this.showProduct = this.showProduct ? false : true;
         },
         filterLesson(){
-            fetch("http://localhost:3000/collection/lessons/search/" + this.search)
+            fetch("https://cw2-web-app.herokuapp.com/collection/lessons/search/" + this.search)
             .then((response) => {
               return response.json();
             })
@@ -103,7 +103,7 @@ let webstore = new Vue({
         // without the for loop u can get all 
         submitForm() { 
             // for (var i = 0; i < this.cart.length; ++i){
-            fetch("http://localhost:3000/collection/orders", {
+            fetch("https://cw2-web-app.herokuapp.com/collection/orders/search/", {
                 method: "POST",
                 body: JSON.stringify({
                   firstName: this.order.firstName,
@@ -134,7 +134,7 @@ let webstore = new Vue({
                 // console.log(this.cart[1]._id)
                  for (var i = 0; i < this.cart.length; ++i){
                     console.log(this.cart[i].space)
-                fetch("http://localhost:3000/collection/lessons/" + this.cart[i]._id, {
+                fetch("https://cw2-web-app.herokuapp.com/collection/lessons/" + this.cart[i]._id, {
                     method: "PUT",
                     body: JSON.stringify({
                         space: this.cart[i].space
