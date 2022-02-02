@@ -42,7 +42,9 @@ return next()
 // res.send('Select a collection, e.g., /collection/messages')
 // })
 
-
+app.get('/', (req, res, next) => {
+    res.send('Select a collection, e.g., /collection/messages')
+    })
 
 app.get('/collection/:collectionName/search/', (req, res, next) => {
 req.collection.find({}).toArray((e, results) => {
