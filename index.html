@@ -32,7 +32,8 @@
                         Search (as you type) and Shopping cart 
                         The shopping cart button only enabled after at least one lesson is added to cart
                         -->
-                    <input type="text" v-model="search" placeholder="search" class="search"/>
+                    <input type="text" v-model="search" placeholder="search" class="search" v-on:keyup="filterLesson()"/>
+
                     <button class="basket" @click='showCheckout' v-if="this.cart.length > 0"> {{this.cart.length}} <span
                             class="fas fa-cart-plus"></span>Shopping cart</button>
                     <button class="basket" disabled='disabled' v-else> <span class="fas fa-cart-plus"></span>Shopping
@@ -49,11 +50,11 @@
                         v-model="sort.attributes">
                     <label for="location">Location</label>
                     <input type="radio" v-on:click=sort_a_d(sort.option) v-on:change=sort_a_d(sort.option)
-                        id="availableInventory" value="availableInventory" v-model="sort.attributes">
-                    <label for="availableInventory">Spaces</label>
-                    <input type="radio" v-on:change=sort_a_d(sort.option) id="title" value="title"
+                        id="space" value="space" v-model="sort.attributes">
+                    <label for="space">Spaces</label>
+                    <input type="radio" v-on:change=sort_a_d(sort.option) id="topic" value="topic"
                         v-model="sort.attributes">
-                    <label for="title">Subject</label>
+                    <label for="topic">Subject</label>
                     <br>
                     <!-- 
                         There is an option to sort in ascending or descending order, regardless of the attribute selected;
@@ -73,18 +74,18 @@
                         v-for used for the display of the lesson list. 
                         "filteredProducts" used to filter lessons regarding with search
                      -->
-                    <div v-for="product in filteredProducts">
+                    <div v-for="product in products">
                         <div class="p-box">
                             <img v-bind:src='product.image'>
-                            <h2>Subject: {{product.title}}</h2>
+                            <h2>Subject: {{product.topic}}</h2>
                             <p>Location: {{product.location}}</p>
                             <p> Price: £{{product.price}}</p>
-                            <p> Spaces: {{product.availableInventory}}</p>
-                            <span v-if="product.availableInventory === 0">
+                            <p> Spaces: {{product.space}}</p>
+                            <span v-if="product.space === 0">
                                 All out!!!
                             </span>
-                            <span v-else-if="product.availableInventory <= 3 ">
-                                Only {{product.availableInventory}} left!
+                            <span v-else-if="product.space <= 3 ">
+                                Only {{product.space}} left!
                             </span>
                             <span v-else>Buy now!!</span>
                             <p>
@@ -122,17 +123,17 @@
                             <!-- 
                                 for loop going through the cart items and dispalying lesson, location and price
                              -->
-                    <div v-for="(basket,index) in cart" :key="cart.title">
+                    <div v-for="(basket,index) in cart" :key="cart.topic">
                         <div class="p-box">
                             <img v-bind:src='basket.image'>
-                            <h2 v-text='basket.title'></h2>
+                            <h2 v-text='basket.topic'></h2>
                             <p>Location: {{basket.location}}</p>
                             <p> Price: £{{basket.price}}</p>
                             <!-- 
                                 User can remove lesson from shopping cart; the removed lesson is
                                 added back to the lesson list.
                              -->
-                            <button class="remove-btn" @click="removeToCart(index,basket.id)"> remove from cart </button>
+                            <button class="remove-btn" @click="removeToCart(index,basket._id)"> remove from cart </button>
                         </div>
                     </div>
                 </div>
