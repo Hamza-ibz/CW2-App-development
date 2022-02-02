@@ -42,8 +42,8 @@ return next()
 // res.send('Select a collection, e.g., /collection/messages')
 // })
 
-app.get('/why', (req, res, next) => {
-    res.send('Select a collection, e.g., /collection/messages')
+app.get('/', (req, res, next) => {
+    res.send('WELCOME TO THE BACKEND')
     })
 
 app.get('/collection/:collectionName/search/', (req, res, next) => {
