@@ -17,7 +17,7 @@ let webstore = new Vue({
         phone_value: "",
     },
     created: () => {
-        fetch("https://cw2-web-app.herokuapp.com/collection/lessons/search/")
+        fetch("https://cw2-web-app.herokuapp.com/collection/lessons/")
           .then((response) => {
             return response.json();
           })
@@ -48,23 +48,7 @@ let webstore = new Vue({
 
         addToCart(product) {
             product.space = product.space - 1;
-            this.cart.push(product)
-            // fetch("http://localhost:3000/collection/orders", {
-            //   method: "POST",
-            //   body: JSON.stringify({
-            //     firstName: this.order.firstName,
-            //     lastName: this.order.lastName,
-            //     phone: this.phone_value
-            // }),
-            //   headers: {
-            //     "Content-Type": "application/json",
-            //   },
-            // })
-            //   .then((response) => response.json())
-            // //   .then((res) => {
-            // //     this.updateLessonSpaces();
-            // //   })
-            ;
+            this.cart.push(product);
         },
 
         // removeToCart(index, d) function for loops through the product array checking if the product id matches 
@@ -102,18 +86,12 @@ let webstore = new Vue({
 
         // without the for loop u can get all 
         submitForm() { 
-            // for (var i = 0; i < this.cart.length; ++i){
             fetch("https://cw2-web-app.herokuapp.com/collection/orders/", {
                 method: "POST",
                 body: JSON.stringify({
                   firstName: this.order.firstName,
                   lastName: this.order.lastName,
                   phone: this.phone_value,
-                //   lessonid:this.cart[i]._id,
-                //   lessonName: this.cart[i].topic,
-                //   lessonSpace: this.cart[i].space,
-                //   lessonid: this.cart.map(a => a._id),
-                //   space: this.cart.map(({ space, topic }) => ({ space, topic })),//space
                 
                   lessons:this.cart.map((item) => {
                     return {
@@ -130,8 +108,7 @@ let webstore = new Vue({
               })
                 .then((response) => response.json())
                 .then((res) => {
-                //   this.updateLessonSpaces();
-                // console.log(this.cart[1]._id)
+
                  for (var i = 0; i < this.cart.length; ++i){
                     console.log(this.cart[i]._id)
                 fetch("https://cw2-web-app.herokuapp.com/collection/lessons/" + this.cart[i]._id, {
@@ -145,16 +122,13 @@ let webstore = new Vue({
                   })
                     .then((response) => response.json())
                     .then((res) => {
-                    //   this.isLoading = false;
-                    //   alert("Order submitted successfully!");
+
                       location.reload();
                     });
                     } 
                 })
-            // } // for loop ends
             
             alert('order submitted!') 
-            // location.reload();
         },
 
 
@@ -261,16 +235,6 @@ let webstore = new Vue({
                 return product.topic.toLowerCase().match(this.search.toLowerCase());
             });
         },
-        // filterLesson: function (){
-        //     fetch("http://localhost:3000/collection/lessons/search/")
-        //     .then((response) => {
-        //       return response.json();
-        //     })
-        //     .then((_lessons) => {
-        //       webstore.products = _lessons;
-        //       console.log(webstore.products.length);
-        //     });
-        // }
 
     },
 

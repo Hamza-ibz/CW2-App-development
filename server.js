@@ -18,18 +18,6 @@ db = client.db('webstore')
 console.log("Connected to database successfully!")
 })
 
-    // app.use(function(req, res, next) {
-    //     res.setHeader('Access-Control-Allow-Origin', '*');
-    //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    //     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    //     res.setHeader('Access-Control-Allow-Credentials', true);
-    //     // handle OPTIONS method
-    //     if ('OPTIONS' == req.method) {
-    //         return res.sendStatus(200);
-    //     } else {
-    //         next();
-    //     }
-    // });
 
 app.param('collectionName', (req, res, next, collectionName) => {
 req.collection = db.collection(collectionName)
@@ -42,37 +30,20 @@ if(!(collection_.includes("lessons") || collection_.includes("orders")) )
     res.send('ERROR PATH IS WRONG. PLEASE CHECK THE PATH')
     return 
 }
-// else {
-//     // console.log("collectionName equal to collections in database")
-// console.log("In comes a " + req.method + " to " + req.url);
-// // if(""+req.method.includes("PUT")){
-// //     console.log(req.body)
-// // }
-// }
 return next()
 })
 
-// app.get('/', (req, res, next) => {
-// res.send('Select a collection, e.g., /collection/messages')
-// })
-
 app.get('/', (req, res, next) => {
     res.send('WELCOME TO THE BACKEND')
+    console.log("In comes a " + req.method + " to " + req.url + " GET request successfull");
+    console.log("----------------------------------------------------------------------------------------------------------------")
+
     })
 
 app.get('/collection/:collectionName/search/', (req, res, next) => {
 req.collection.find({}).toArray((e, results) => {
     console.log("In comes a " + req.method + " to " + req.url + " GET request successfull");
     console.log("----------------------------------------------------------------------------------------------------------------")
-    // console.log(results);
-    // console.log(req.collection.namespace)
-    // let collection_ = ""+req.collection.namespace
-    // if(!(collection_.includes("lessons") || collection_.includes("orders")) )
-    // {
-    //     console.log("path is not right")
-    //     res.send('Check the path')
-    //     return 
-    // }
 if (e) return next(e)
 res.send(results)
 })
@@ -96,7 +67,6 @@ req.collection.insertOne(req.body,(e,results) => {
     console.log("----------------------------------------------------------------------------------------------------------------")
 if (e) return next (e)
 res.send(req.body)
-// res.send(JSON.stringify(result));
 })
 })
 
@@ -121,27 +91,19 @@ app.get('/collection/:collectionName/search/:topic', (req, res, next) => {
         console.log("----------------------------------------------------------------------------------------------------------------")
         res.send(result)
         })
-
-    // req.collection.find({topic:regex}).then(function(result){
-    //     res.status (200).json(result)
-    // })
     })
 
 
 app.put('/collection/:collectionName/:id', (req, res, next) => {
-    // console.log("PLEASE WORK");
     req.collection.updateOne(
     {_id: new ObjectID(req.params.id)},
     {$set: req.body},
     {safe: true, multi: false},
     (e, result) => {
     if (e) return next(e)
-    res.send(req.body) // (result.result.n == 1)
-    //(result.n === 1) ? {msg: 'success'} : {msg: 'error'}
-    // console.log(JSON.stringify(result.result.n))
+    res.send(req.body) 
     console.log("In comes a "+req.method + " to " + req.url + " PUT request successfull updated: " + JSON.stringify(req.body));
     console.log("----------------------------------------------------------------------------------------------------------------")
-    // console.log(JSON.stringify(req.body))
 })
     })
 
@@ -158,14 +120,12 @@ app.use(function(req, res, next) {
     if (fileInfo.isFile()) 
     {res.sendFile(filePath);
     console.log("IMAGE FOUND")
-    console.log("In comes a " + req.method + " to " + req.url + " Get request successful")
+    console.log("In comes a " + req.method + " to " + req.url)
     console.log("----------------------------------------------------------------------------------------------------------------")
 }
     else next();
     });
-    // res.status(404);
-    // res.send("image not found");
-    // console.log("image not found")
+
     });
 
     app.use((req, res, next) => {
@@ -176,26 +136,6 @@ app.use(function(req, res, next) {
     console.log("----------------------------------------------------------------------------------------------------------------")
       });
 
-// app.use(function(req, res) {
-//     // console.log("In comes a " + req.method + " to " + req.url );
-//     // Sets the status code to 404
-//     res.status(404);
-//     // Sends the error "File not found!”
-//     res.send("wrong path");
-//     console.log("error 404 wrong path")
-//     });
-
-
-// app.delete('/collection/:collectionName/:id', (req, res, next) => {
-// req.collection.deleteOne(
-// {_id: ObjectID(req.params.id)},
-// (e, result) => {
-// if (e) return next(e)
-// res.send((result.n == 1) ? {msg: 'success'} : {msg: 'error'})
-// })
-// })
-
-// app.listen(3000);
 app.listen(process.env.PORT || 3000, (_) => {
     console.log("Server started!");
   });
