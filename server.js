@@ -42,7 +42,7 @@ return next()
 // res.send('Select a collection, e.g., /collection/messages')
 // })
 
-app.get('https://cw2-web-app.herokuapp.com/', (req, res, next) => {
+app.get('/', (req, res, next) => {
     res.send('WELCOME TO THE BACKEND')
     })
 
@@ -109,7 +109,8 @@ app.get('/collection/:collectionName/search/:topic', (req, res, next) => {
     })
 
 
-app.put('https://cw2-web-app.herokuapp.com/collection/:collectionName/:id', (req, res, next) => {
+app.put('/collection/:collectionName/:id', (req, res, next) => {
+    console.log("PLEASE WORK");
     req.collection.updateOne(
     {_id: new ObjectID(req.params.id)},
     {$set: req.body},
