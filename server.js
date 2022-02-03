@@ -62,6 +62,7 @@ app.get('/', (req, res, next) => {
 app.get('/collection/:collectionName/search/', (req, res, next) => {
 req.collection.find({}).toArray((e, results) => {
     console.log("In comes a " + req.method + " to " + req.url + " GET request successfull");
+    console.log("--------------------------------------------------------------------------------------")
     // console.log(results);
     // console.log(req.collection.namespace)
     // let collection_ = ""+req.collection.namespace
@@ -79,6 +80,7 @@ res.send(results)
 app.get('/collection/:collectionName/', (req, res, next) => {
     req.collection.find({}).toArray((e, results) => {
         console.log("In comes a " + req.method + " to " + req.url + " GET request successfull");
+        console.log("--------------------------------------------------------------------------------------")
     if (e) return next(e)
     res.send(results)
     })
@@ -87,10 +89,10 @@ app.get('/collection/:collectionName/', (req, res, next) => {
 
 
 app.post('/collection/:collectionName/search/', (req, res, next) => {
-    
 req.collection.insertOne(req.body,(e,results) => {
     console.log("In comes a " + req.method + " to " + req.url + " POST request successfull");
     console.log(req.body);
+    console.log("--------------------------------------------------------------------------------------")
 if (e) return next (e)
 res.send(req.body)
 // res.send(JSON.stringify(result));
@@ -102,6 +104,7 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
 req.collection.findOne({ _id: new ObjectID(req.params.id) }, (e, result) => {
 if (e) return next(e)
 console.log("In comes a " + req.method + " to " + req.url + " GET request successfull")
+console.log("--------------------------------------------------------------------------------------")
 console.log(result);
 res.send(result)
 
@@ -114,6 +117,7 @@ app.get('/collection/:collectionName/search/:topic', (req, res, next) => {
         if (e) return next(e)
         console.log("In comes a " + req.method + " to " + req.url + " GET request successfull")
         console.log(result);
+        console.log("--------------------------------------------------------------------------------------")
         res.send(result)
         })
 
@@ -134,7 +138,8 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
     res.send(req.body) // (result.result.n == 1)
     //(result.n === 1) ? {msg: 'success'} : {msg: 'error'}
     // console.log(JSON.stringify(result.result.n))
-    console.log(req.method + " to " + req.url + " PUT request successfull updated: " + req.body);
+    console.log("In comes a "+req.method + " to " + req.url + " PUT request successfull updated: " + JSON.stringify(req.body));
+    console.log("--------------------------------------------------------------------------------------")
     // console.log(JSON.stringify(req.body))
 })
     })
@@ -152,7 +157,8 @@ app.use(function(req, res, next) {
     if (fileInfo.isFile()) 
     {res.sendFile(filePath);
     console.log("image found")
-    console.log("In comes a " + req.method + " to " + req.url + " Get request successful")}
+    console.log("In comes a " + req.method + " to " + req.url + " Get request successful")
+    console.log("--------------------------------------------------------------------------------------")}
     else next();
     });
     // res.status(404);
@@ -162,9 +168,10 @@ app.use(function(req, res, next) {
 
     app.use((req, res, next) => {
     res.status(404);
-    res.send("file not found");
+    res.send("error file not found");
     console.log("In comes a " + req.method + " to " + req.url)
-    console.log("file not found")
+    console.log("error file not found")
+    console.log("--------------------------------------------------------------------------------------")
       });
 
 // app.use(function(req, res) {
