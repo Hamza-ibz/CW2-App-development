@@ -41,13 +41,13 @@ if(!(collection_.includes("lessons") || collection_.includes("orders")) )
     res.send('Check the path')
     return 
 }
-else {
-    // console.log("collectionName equal to collections in database")
-console.log("In comes a " + req.method + " to " + req.url);
-// if(""+req.method.includes("PUT")){
-//     console.log(req.body)
+// else {
+//     // console.log("collectionName equal to collections in database")
+// console.log("In comes a " + req.method + " to " + req.url);
+// // if(""+req.method.includes("PUT")){
+// //     console.log(req.body)
+// // }
 // }
-}
 return next()
 })
 
@@ -124,7 +124,7 @@ app.get('/collection/:collectionName/search/:topic', (req, res, next) => {
 
 
 app.put('/collection/:collectionName/:id', (req, res, next) => {
-    console.log("PLEASE WORK");
+    // console.log("PLEASE WORK");
     req.collection.updateOne(
     {_id: new ObjectID(req.params.id)},
     {$set: req.body},
@@ -134,8 +134,8 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
     res.send(req.body) // (result.result.n == 1)
     //(result.n === 1) ? {msg: 'success'} : {msg: 'error'}
     // console.log(JSON.stringify(result.result.n))
-    console.log("In comes a " + req.method + " to " + req.url + " PUT request successfull updated: " + JSON.stringify(req.body));
-    // console.log(req.body)
+    console.log(req.method + " to " + req.url + " PUT request successfull updated: " + req.body);
+    // console.log(JSON.stringify(req.body))
 })
     })
 
