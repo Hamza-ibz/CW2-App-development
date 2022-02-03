@@ -1,0 +1,68 @@
+[{
+  "_id": {
+    "$oid": "61fbf5a2af127ca6d0acd3c7"
+  },
+  "firstName": "hamza",
+  "lastName": "ibrahim",
+  "phone": "999",
+  "lessons": [
+    {
+      "_id": "61f06630066220734599a7ca",
+      "spaces": 4,
+      "topic": "Psychology"
+    },
+    {
+      "_id": "61f06730066220734599a7cd",
+      "spaces": 4,
+      "topic": "Spanish"
+    },
+    {
+      "_id": "61f06778066220734599a7cf",
+      "spaces": 4,
+      "topic": "Economics"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "61fbf5bfaf127ca6d0acd3c8"
+  },
+  "firstName": "bob",
+  "lastName": "mark",
+  "phone": "12121",
+  "lessons": [
+    {
+      "_id": "61f067b7066220734599a7d2",
+      "spaces": 4,
+      "topic": "Law"
+    },
+    {
+      "_id": "61f067f4066220734599a7d4",
+      "spaces": 4,
+      "topic": "ICT"
+    },
+    {
+      "_id": "61f06883066220734599a7d6",
+      "spaces": 4,
+      "topic": "History"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "61fbf5dcaf127ca6d0acd3c9"
+  },
+  "firstName": "jack",
+  "lastName": "nate",
+  "phone": "333",
+  "lessons": [
+    {
+      "_id": "61f067b7066220734599a7d2",
+      "spaces": 3,
+      "topic": "Law"
+    },
+    {
+      "_id": "61f06630066220734599a7ca",
+      "spaces": 3,
+      "topic": "Psychology"
+    }
+  ]
+}]
