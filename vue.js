@@ -103,7 +103,7 @@ let webstore = new Vue({
         // without the for loop u can get all 
         submitForm() { 
             // for (var i = 0; i < this.cart.length; ++i){
-            fetch("https://cw2-web-app.herokuapp.com/collection/orders/search/", {
+            fetch("https://cw2-web-app.herokuapp.com/collection/orders/", {
                 method: "POST",
                 body: JSON.stringify({
                   firstName: this.order.firstName,
