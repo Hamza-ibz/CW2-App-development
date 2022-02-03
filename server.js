@@ -42,7 +42,7 @@ return next()
 // res.send('Select a collection, e.g., /collection/messages')
 // })
 
-app.get('/', (req, res, next) => {
+app.get('https://cw2-web-app.herokuapp.com/', (req, res, next) => {
     res.send('WELCOME TO THE BACKEND')
     })
 
@@ -109,34 +109,33 @@ app.get('/collection/:collectionName/search/:topic', (req, res, next) => {
     })
 
 
-app.put('/collection/:collectionName/:id', (req, res, next) => {
+app.put('https://cw2-web-app.herokuapp.com/collection/:collectionName/:id', (req, res, next) => {
     req.collection.updateOne(
     {_id: new ObjectID(req.params.id)},
     {$set: req.body},
     {safe: true, multi: false},
     (e, result) => {
-    // if (e) return next(e)
+    if (e) return next(e)
     res.send(req.body) // (result.result.n == 1)
     //(result.n === 1) ? {msg: 'success'} : {msg: 'error'}
     // console.log(JSON.stringify(result.result.n))
     console.log("In comes a " + req.method + " to " + req.url + " PUT request successfull updated: " + JSON.stringify(req.body));
     // console.log(req.body)
-    if (e) return next(e)
 })
     })
 
-    app.use(function(req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        // handle OPTIONS method
-        if ('OPTIONS' == req.method) {
-            return res.sendStatus(200);
-        } else {
-            next();
-        }
-    });
+    // app.use(function(req, res, next) {
+    //     res.setHeader('Access-Control-Allow-Origin', '*');
+    //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    //     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    //     res.setHeader('Access-Control-Allow-Credentials', true);
+    //     // handle OPTIONS method
+    //     if ('OPTIONS' == req.method) {
+    //         return res.sendStatus(200);
+    //     } else {
+    //         next();
+    //     }
+    // });
 
 app.use(function(req, res, next) {
     // Uses path.join to find the path where the file should be
