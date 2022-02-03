@@ -18,18 +18,18 @@ db = client.db('webstore')
 console.log("Connected to database successfully!")
 })
 
-    app.use(function(req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        // handle OPTIONS method
-        if ('OPTIONS' == req.method) {
-            return res.sendStatus(200);
-        } else {
-            next();
-        }
-    });
+    // app.use(function(req, res, next) {
+    //     res.setHeader('Access-Control-Allow-Origin', '*');
+    //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    //     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    //     res.setHeader('Access-Control-Allow-Credentials', true);
+    //     // handle OPTIONS method
+    //     if ('OPTIONS' == req.method) {
+    //         return res.sendStatus(200);
+    //     } else {
+    //         next();
+    //     }
+    // });
 
 app.param('collectionName', (req, res, next, collectionName) => {
 req.collection = db.collection(collectionName)
@@ -87,6 +87,14 @@ app.get('/collection/:collectionName/', (req, res, next) => {
 
 
 app.post('/collection/:collectionName/search/', (req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+        // handle OPTIONS method
+        if ('OPTIONS' == req.method) {
+            return res.sendStatus(200);
+        } 
 req.collection.insertOne(req.body,(e,results) => {
     console.log("In comes a " + req.method + " to " + req.url + " POST request successfull");
     console.log(req.body);
