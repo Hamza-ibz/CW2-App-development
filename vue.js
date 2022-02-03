@@ -154,7 +154,7 @@ let webstore = new Vue({
             // } // for loop ends
             
             alert('order submitted!') 
-            location.reload();
+            // location.reload();
         },
 
 
