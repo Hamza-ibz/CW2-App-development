@@ -144,16 +144,16 @@ let webstore = new Vue({
                     },
                   })
                     .then((response) => response.json())
-                    // .then((res) => {
+                    .then((res) => {
                     //   this.isLoading = false;
-                    //   alert("Order submitted successfully!");
-                    //   location.reload();
-                    // });
+                      alert("Order submitted successfully!");
+                      location.reload();
+                    });
                     } 
                 })
             // } // for loop ends
             
-            alert('order submitted!') 
+            // alert('order submitted!') 
             // location.reload();
         },
 
