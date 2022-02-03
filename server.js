@@ -37,9 +37,9 @@ let collection_ = ""+req.collection.namespace
 
 if(!(collection_.includes("lessons") || collection_.includes("orders")) )
 {
-    console.log("path is not right cannot get data")
+    console.log("PATH IS WRONG. CANNOT GET DATA")
     console.log("----------------------------------------------------------------------------------------------------------------")
-    res.send('Check the path')
+    res.send('ERROR PATH IS WRONG. PLEASE CHECK THE PATH')
     return 
 }
 // else {
@@ -157,9 +157,10 @@ app.use(function(req, res, next) {
     }
     if (fileInfo.isFile()) 
     {res.sendFile(filePath);
-    console.log("image found")
+    console.log("IMAGE FOUND")
     console.log("In comes a " + req.method + " to " + req.url + " Get request successful")
-    console.log("----------------------------------------------------------------------------------------------------------------")}
+    console.log("----------------------------------------------------------------------------------------------------------------")
+}
     else next();
     });
     // res.status(404);
@@ -169,9 +170,9 @@ app.use(function(req, res, next) {
 
     app.use((req, res, next) => {
     res.status(404);
-    res.send("error file not found");
+    res.send("ERROR FILE NOT FOUND. PLEASE CHECK PATH");
     console.log("In comes a " + req.method + " to " + req.url)
-    console.log("error file not found")
+    console.log("FILE DOES NOT EXIST")
     console.log("----------------------------------------------------------------------------------------------------------------")
       });
 
