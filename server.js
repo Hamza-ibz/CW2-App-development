@@ -108,6 +108,19 @@ app.get('/collection/:collectionName/search/:topic', (req, res, next) => {
     // })
     })
 
+    app.use(function(req, res, next) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+        // handle OPTIONS method
+        if ('OPTIONS' == req.method) {
+            return res.sendStatus(200);
+        } else {
+            next();
+        }
+    });
+
 app.put('/collection/:collectionName/:id', (req, res, next) => {
     req.collection.updateOne(
     {_id: new ObjectID(req.params.id)},
@@ -121,12 +134,9 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
     console.log("In comes a " + req.method + " to " + req.url + " PUT request successfull updated: " + JSON.stringify(req.body));
     // console.log(req.body)
 })
-if ('OPTIONS' == req.method) {
-    return res.sendStatus(200);
-} else {
-    next();
-}
     })
+
+
 
 app.use(function(req, res, next) {
     // Uses path.join to find the path where the file should be
