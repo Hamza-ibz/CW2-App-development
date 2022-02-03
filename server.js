@@ -89,7 +89,7 @@ app.get('/collection/:collectionName/', (req, res, next) => {
 
 
 
-app.post('/collection/:collectionName/search/', (req, res, next) => {
+app.post('/collection/:collectionName/', (req, res, next) => {
 req.collection.insertOne(req.body,(e,results) => {
     console.log("In comes a " + req.method + " to " + req.url + " POST request successfull");
     console.log(req.body);
