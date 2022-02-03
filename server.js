@@ -18,6 +18,19 @@ db = client.db('webstore')
 console.log("Connected to database successfully!")
 })
 
+    app.use(function(req, res, next) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+        // handle OPTIONS method
+        if ('OPTIONS' == req.method) {
+            return res.sendStatus(200);
+        } else {
+            next();
+        }
+    });
+
 app.param('collectionName', (req, res, next, collectionName) => {
 req.collection = db.collection(collectionName)
 let collection_ = ""+req.collection.namespace
@@ -125,18 +138,6 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
 })
     })
 
-    // app.use(function(req, res, next) {
-    //     res.setHeader('Access-Control-Allow-Origin', '*');
-    //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    //     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    //     res.setHeader('Access-Control-Allow-Credentials', true);
-    //     // handle OPTIONS method
-    //     if ('OPTIONS' == req.method) {
-    //         return res.sendStatus(200);
-    //     } else {
-    //         next();
-    //     }
-    // });
 
 app.use(function(req, res, next) {
     // Uses path.join to find the path where the file should be
