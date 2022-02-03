@@ -133,7 +133,7 @@ let webstore = new Vue({
                 //   this.updateLessonSpaces();
                 // console.log(this.cart[1]._id)
                  for (var i = 0; i < this.cart.length; ++i){
-                    console.log(this.cart[i].space)
+                    console.log(this.cart[i]._id)
                 fetch("https://cw2-web-app.herokuapp.com/collection/lessons/" + this.cart[i]._id, {
                     method: "PUT",
                     body: JSON.stringify({

@@ -121,6 +121,11 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
     console.log("In comes a " + req.method + " to " + req.url + " PUT request successfull updated: " + JSON.stringify(req.body));
     // console.log(req.body)
 })
+if ('OPTIONS' == req.method) {
+    return res.sendStatus(200);
+} else {
+    next();
+}
     })
 
 app.use(function(req, res, next) {
